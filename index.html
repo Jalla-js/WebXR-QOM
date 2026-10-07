@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Movement Capture Prototype v2</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<h1>Movement capture prototype</h1>
+<p class="sub">Trace the blue path from the green sphere to the red sphere. Mouse on desktop; wrist (hand tracking) or controller in a Quest headset.</p>
+
+<div class="bar">
+<select id="side" aria-label="Tracked side"><option value="right">Right side</option><option value="left">Left side</option></select>
+<select id="limb" aria-label="Limb status"><option>Unaffected</option><option>Affected</option><option>Control</option></select>
+<label>Upper arm (cm) <input id="upper" type="number" value="30" min="20" max="45"></label>
+<label>Forearm (cm) <input id="fore" type="number" value="27" min="18" max="40"></label>
+</div>
+<div class="bar">
+<button id="vr" class="p">Enter VR</button>
+<button id="clr">Clear history</button>
+</div>
+<div id="status">Move the cursor to the green sphere to start.</div>
+<div id="view"></div>
+
+<h2>Last attempt</h2>
+<div class="scroll"><table id="res"><tr><td>No attempts yet.</td></tr></table></div>
+<p id="warn" class="warn"></p>
+
+<h2>History</h2>
+<div class="scroll"><table id="hist"><tr><td>No attempts yet.</td></tr></table></div>
+
+<h2>Export</h2>
+<div class="bar">
+<button id="dlcsv">Download raw CSV</button>
+<button id="dljson">Download features JSON</button>
+</div>
+
+<p class="note">Research capture tool only. It records and summarises movement; it does not judge good vs. bad movement or make any clinical claim. Shoulder position and elbow angle are geometric estimates from head and wrist pose (Quest does not track the shoulder or elbow), so validate against control data before relying on them. Each attempt also fires a <code>mq:attempt</code> event on <code>document</code> with the samples and metrics, ready for a model to listen to.</p>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
